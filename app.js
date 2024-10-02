@@ -46,6 +46,17 @@ function checkDatesInvalid(startDate, endDate) {
 // add the storage key as an app-wide constant
 const STORAGE_KEY = "vacation_tracker";
 
+function getAllStoredVacations() {
+    // get the string of vacations from localStorage
+    const data = window.localStorage.getItem(STORAGE_KEY);
+
+    // if no vacations are stored, defualt to an empty array
+    // otherwise, return the  stored data (JSON string) as parsed JSON
+    const vacations = data ? JSON.parse(data) : [];
+
+    return vacations;
+};
+
 function storeNewVacation(startDate, endDate) {
     // get data from the storage
     const vacations = getAllStoredVacations(); // returns an array of Strings
@@ -62,17 +73,6 @@ function storeNewVacation(startDate, endDate) {
 
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(vacations));
 };
-
-function getAllStoredVacations() {
-    // get the string of vacations from localStorage
-    const data = window.localStorage.getItem(STORAGE_KEY);
-
-    // if no vacations are stored, defualt to an empty array
-    // otherwise, return the  stored data (JSON string) as parsed JSON
-    const vacations = data ? JSON.parse(data) : [];
-
-    return vacations;
-}
 
 function renderPastVacations() {
     // get the parsed string of vacations or an empy array if there aren't any
