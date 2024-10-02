@@ -32,7 +32,7 @@ newVacationForm.addEventListener("submit", (event)=> {
 });
 
 function checkDatesInvalid(startDate, endDate) {
-    if (!startDate || !endDate || startDate < endDate) {
+    if (!startDate || !endDate || startDate > endDate) {
         // error message
         // we're just gonna clear the form if anything is invalid
         newVacationForm.reset();
