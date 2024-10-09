@@ -92,3 +92,16 @@ function sendMessagetoPWA(message) {
         });
     });
 }
+
+// send a message every 10 seconds
+setInterval(() => {
+    sendMessagetoPWA({type: "update", data: "New data available"});
+}, 10000);
+
+// listen for messages from the app
+self.addEventListener("message", (event) => {
+    console.log("Service worker received a message", event.data);
+
+    // you can respond back if needed
+    event.source.postMessage({type: "response", data: "Message received by sw"});
+});
