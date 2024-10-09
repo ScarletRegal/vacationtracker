@@ -53,6 +53,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
         (async() => {
             // try to get the resource from the cache
+            const cache = await caches.open(CACHE_NAME);
             const cachedResponse = await cache.match(event.request);
             if (cachedResponse) {
                 return cachedResponse;
@@ -81,5 +82,13 @@ self.addEventListener("fetch", (event) => {
             };
         })()
     );
-    
 });
+
+// send a message to the client (app.js) - we will use this to update the data later
+function sendMessagetoPWA(message) {
+    self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+            client.postMessage(message);
+        });
+    });
+}
