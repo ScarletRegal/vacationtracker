@@ -162,3 +162,18 @@ document.getElementById("sendButton").addEventListener("click", () => {
     channel.postMessage(message);
     console.log("Send message from PWA:", message);
 });
+
+// open / create the database
+let db;
+const dbName = "SyncDatabase";
+const request = indexedDB.open(dbName, 1);
+
+request.onerror = function (event) {
+    console.error("Database error: " + event.target.error);
+};
+
+request.onsuccess = function (event) {
+    // now we have our database
+    db = event.target.result;
+    console.log("Database opened successfully");
+};
