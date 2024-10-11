@@ -160,7 +160,7 @@ channel.onmessage = (event) => {
 document.getElementById("sendButton").addEventListener("click", () => {
     const message = "Hello from PWA!";
     channel.postMessage(message);
-    console.log("Send message from PWA:", message);
+    console.log("Send message from PWA: " + message);
 });
 
 // open / create the database
@@ -176,4 +176,16 @@ request.onsuccess = function (event) {
     // now we have our database
     db = event.target.result;
     console.log("Database opened successfully");
+};
+
+request.onupgradeneeded = function (event) {
+    db = event.target.result;
+
+    // create any new object stores for our db or delete any old ones
+    const objectStore = db.createObjectStore( "pendingData", 
+        {
+            keyPath: "id",
+            autoIncrement: true
+        }
+    );
 };
