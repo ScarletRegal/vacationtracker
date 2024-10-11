@@ -153,7 +153,7 @@ const channel = new BroadcastChannel("pwa_channel");
 // listen for messages
 channel.onmessage = (event) => {
     console.log("Received a message in PWA:", event.data);
-    document.getElementById("messages").insertAdjacentElement("beforeend", `<p>Receieved: ${event.data}</p>`);
+    document.getElementById("messages").insertAdjacentHTML("beforeend", `<p>Receieved: ${event.data}</p>`);
 };
 
 // send a message when the button is clicked 
