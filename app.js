@@ -229,5 +229,31 @@ document.getElementById("dataForm")
                 document.getElementById("status").textContent = "Sync was registered. Data will be send when online.";
             })
             .catch((error) => console.error("Error:", error));
+        } else {
+            // background sync isn't supported, try to send immediately
+            sendData(data)
+            .then((result) => {
+                // Update our UI
+                document.getElementById("status").textContent = result;
+            })
+            .then((error) => {
+                // Update our UI
+                document.getElementById("status").textContent = error.message;
+            })
         }
 });
+
+// simulate sending data
+function sendData(data) {
+    console.log("Attempting to send data:", data);
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (Math.random() > 0.5) {
+                resolve("Data send successfully");
+            } else {
+                reject(new Error("Failed to send data"));
+            }
+        }, 1000);
+    });
+}
