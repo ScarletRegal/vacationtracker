@@ -194,7 +194,7 @@ request.onupgradeneeded = function (event) {
 function addDataToIndexedDB (data) {
     return new Promise((resolve, reject) => {
         
-        const transaction = db.transaction(["pendingData"], "readWrite");
+        const transaction = db.transaction(["pendingData"], "readwrite");
         const objectStore = transaction.objectStore("pendingData");
         const request = objectStore.add( {data: data} );
 

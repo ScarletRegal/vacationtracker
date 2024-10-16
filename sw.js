@@ -141,3 +141,7 @@ self.addEventListener("sync", function(event) {
 function sendDataToServer() {
     
 }
+
+function getAllPendingData() {
+    return new Promise()
+}
