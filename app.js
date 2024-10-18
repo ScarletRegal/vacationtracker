@@ -257,3 +257,19 @@ function sendData(data) {
         }, 1000);
     });
 }
+
+function removeDataFromIndexedDB(id) {
+    return new Promise((resolve, reject) => {
+          const transaction = db.transaction(["pendingData"], "readwrite");
+          const objectStore = transaction.objectStore("pendingData");
+          const request = objectStore.delete(id);
+
+           request.onsuccess = function (event) {
+                 resolve();
+           };
+
+           request.onerror = function (event) {
+               reject("Error removing data: " + event.target.error);
+          };
+      });
+}
