@@ -195,3 +195,20 @@ function removeDataFromIndexedDB(id) {
           };
       });
 }
+
+// add data to our databse, we need a transaction to accomplish it
+function addDataToIndexedDB (data) {
+    return new Promise((resolve, reject) => {
+        
+        const transaction = db.transaction(["pendingData"], "readwrite");
+        const objectStore = transaction.objectStore("pendingData");
+        const request = objectStore.add( {data: data} );
+
+        request.onsuccess = function(event) {
+            resolve();
+        };
+        request.onerror = function(event) {
+            reject("Error storing data: " + event.trget.error);
+        };
+    });
+}
